@@ -1,37 +1,54 @@
 .zontact-root{position:fixed;bottom:16px;z-index:999999}
 .zontact-right{right:16px}
 .zontact-left{left:16px}
-.zontact-button{background:var(--zontact-accent,#2563eb);color:#fff;border:none;border-radius:9999px;padding:12px 16px;font-size:14px;box-shadow:0 6px 16px rgba(0,0,0,.18);cursor:pointer}
-.zontact-button:hover{filter:brightness(0.95)}
+.zontact-button{background:var(--zontact-accent,#2563eb);color:#fff;border:none;border-radius:9999px;padding:10px 14px;font-size:13px;box-shadow:0 4px 12px rgba(0,0,0,.15);cursor:pointer;font-weight:500}
+.zontact-button:hover{filter:brightness(0.95);transform:translateY(-1px)}
 .zontact-button:focus{outline:2px solid #000;outline-offset:2px}
 
 /* Modal shell */
 .zontact-modal[aria-hidden="true"]{display:none}
-.zontact-modal{position:fixed;inset:0}
+.zontact-modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:20px}
 .zontact-modal__overlay{position:absolute;inset:0;background:rgba(0,0,0,.5)}
-.zontact-modal__dialog{position:relative;background:#fff;color:#111;margin:8vh auto;max-width:560px;width:calc(100% - 32px);border-radius:12px;box-shadow:0 20px 50px rgba(0,0,0,.25);display:flex;flex-direction:column;max-height:84vh;overflow:hidden}
-.zontact-modal__header{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid #eee}
-.zontact-close{background:transparent;border:none;font-size:24px;line-height:1;cursor:pointer}
+.zontact-modal__dialog{position:relative;background:#fff;color:#111;max-width:480px;width:100%;border-radius:8px;box-shadow:0 10px 25px rgba(0,0,0,.2);display:flex;flex-direction:column;max-height:90vh;overflow:hidden}
+.zontact-modal__header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid #e5e7eb;flex-shrink:0}
+.zontact-modal__header h2{margin:0;font-size:18px;font-weight:600;color:#111}
+.zontact-close{background:transparent;border:none;font-size:20px;line-height:1;cursor:pointer;color:#6b7280;padding:4px;border-radius:4px}
+.zontact-close:hover{background:#f3f4f6;color:#374151}
 
 /* Form layout */
-.zontact-form{padding:16px 22px 88px;overflow:auto}
-.zontact-field{margin-bottom:14px}
-.zontact-field label{display:block;margin-bottom:6px;font-weight:600}
-.zontact-field input,.zontact-field textarea{width:100%;padding:12px 14px;border:1px solid #d1d5db;border-radius:10px;font-size:15px;background:#fff}
-.zontact-field input:focus,.zontact-field textarea:focus{outline:2px solid var(--zontact-accent,#2563eb);outline-offset:0}
+.zontact-form{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.zontact-form__content{padding:20px;overflow-y:auto;flex:1}
+.zontact-field{margin-bottom:16px}
+.zontact-field:last-child{margin-bottom:0}
+.zontact-field label{display:block;margin-bottom:6px;font-weight:500;font-size:14px;color:#374151}
+.zontact-field input,.zontact-field textarea{width:100%;padding:10px 12px;border:1px solid #d1d5db;border-radius:6px;font-size:14px;background:#fff;box-sizing:border-box;transition:border-color 0.2s}
+.zontact-field input:focus,.zontact-field textarea:focus{outline:none;border-color:var(--zontact-accent,#2563eb);box-shadow:0 0 0 3px rgba(37,99,235,0.1)}
+.zontact-field textarea{resize:vertical;min-height:80px}
 
-/* Sticky actions to keep submit visible */
-.zontact-actions{position:sticky;bottom:0;background:#fff;padding:14px 22px;border-top:1px solid #eee;display:flex;align-items:center;gap:12px;margin-top:8px}
-.zontact-submit{background:var(--zontact-accent,#2563eb);color:#fff;border:none;border-radius:10px;padding:12px 16px;font-size:15px;cursor:pointer}
-.zontact-submit:hover{filter:brightness(0.95)}
-.zontact-status{font-size:13px;color:#111}
+/* Actions bar - fixed at bottom */
+.zontact-actions{background:#fff;padding:16px 20px;border-top:1px solid #e5e7eb;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.zontact-submit{background:var(--zontact-accent,#2563eb);color:#fff;border:none;border-radius:6px;padding:10px 20px;font-size:14px;font-weight:500;cursor:pointer;transition:all 0.2s}
+.zontact-submit:hover{filter:brightness(0.95);transform:translateY(-1px)}
+.zontact-submit:disabled{opacity:0.6;cursor:not-allowed;transform:none}
+.zontact-status{font-size:13px;color:#6b7280;flex:1;margin-left:12px}
+.zontact-status.success{color:#059669}
+.zontact-status.error{color:#dc2626}
 .zontact--hp{position:absolute;left:-10000px}
 
-/* Mobile full-screen treatment */
+/* Consent checkbox */
+.zontact-consent label{display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.4}
+.zontact-consent input[type="checkbox"]{margin:0;flex-shrink:0;margin-top:2px}
+.zontact-consent__text{color:#6b7280}
+
+/* Mobile responsive */
 @media (max-width: 640px){
-	.zontact-modal__dialog{margin:0;max-width:none;width:100%;height:100vh;max-height:none;border-radius:0}
-	.zontact-modal__header{padding:16px 18px}
-	.zontact-form{padding:14px 18px 0}
-	.zontact-actions{padding:12px 18px}
+	.zontact-modal{padding:10px}
+	.zontact-modal__dialog{max-height:95vh;border-radius:6px}
+	.zontact-modal__header{padding:14px 16px}
+	.zontact-modal__header h2{font-size:16px}
+	.zontact-form__content{padding:16px}
+	.zontact-actions{padding:14px 16px;flex-direction:column;gap:12px;align-items:stretch}
+	.zontact-submit{width:100%}
+	.zontact-status{margin-left:0;text-align:center}
 }
 

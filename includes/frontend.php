@@ -27,30 +27,32 @@ class Frontend {
 						<button type="button" class="zontact-close" aria-label="<?php echo esc_attr__( 'Close', 'Zontact' ); ?>" data-zontact-close>&times;</button>
 					</header>
 					<form class="zontact-form" novalidate>
-						<div class="zontact-field">
-							<label for="zontact-name"><?php echo esc_html__( 'Name', 'Zontact' ); ?></label>
-							<input id="zontact-name" name="name" type="text" autocomplete="name" required>
+						<div class="zontact-form__content">
+							<div class="zontact-field">
+								<label for="zontact-name"><?php echo esc_html__( 'Name', 'Zontact' ); ?></label>
+								<input id="zontact-name" name="name" type="text" autocomplete="name" required>
+							</div>
+							<div class="zontact-field">
+								<label for="zontact-email"><?php echo esc_html__( 'Email', 'Zontact' ); ?></label>
+								<input id="zontact-email" name="email" type="email" autocomplete="email" required>
+							</div>
+							<div class="zontact-field">
+								<label for="zontact-message"><?php echo esc_html__( 'Message', 'Zontact' ); ?></label>
+								<textarea id="zontact-message" name="message" rows="4" required></textarea>
+							</div>
+							<div class="zontact-field zontact--hp" aria-hidden="true" hidden>
+								<label for="zontact-website">Website</label>
+								<input id="zontact-website" name="website" type="text" tabindex="-1" autocomplete="off">
+							</div>
+							<?php if ( $consent_text ) : ?>
+							<div class="zontact-field zontact-consent">
+								<label>
+									<input name="consent" type="checkbox" required>
+									<span class="zontact-consent__text"><?php echo $consent_text; ?></span>
+								</label>
+							</div>
+							<?php endif; ?>
 						</div>
-						<div class="zontact-field">
-							<label for="zontact-email"><?php echo esc_html__( 'Email', 'Zontact' ); ?></label>
-							<input id="zontact-email" name="email" type="email" autocomplete="email" required>
-						</div>
-						<div class="zontact-field">
-							<label for="zontact-message"><?php echo esc_html__( 'Message', 'Zontact' ); ?></label>
-							<textarea id="zontact-message" name="message" rows="5" required></textarea>
-						</div>
-						<div class="zontact-field zontact--hp" aria-hidden="true" hidden>
-							<label for="zontact-website">Website</label>
-							<input id="zontact-website" name="website" type="text" tabindex="-1" autocomplete="off">
-						</div>
-						<?php if ( $consent_text ) : ?>
-						<div class="zontact-field zontact-consent">
-							<label>
-								<input name="consent" type="checkbox" required>
-								<span class="zontact-consent__text"><?php echo $consent_text; ?></span>
-							</label>
-						</div>
-						<?php endif; ?>
 						<div class="zontact-actions">
 							<button type="submit" class="zontact-submit"><?php echo esc_html__( 'Send', 'Zontact' ); ?></button>
 							<div class="zontact-status" role="status" aria-live="polite"></div>
