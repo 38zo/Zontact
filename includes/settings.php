@@ -18,6 +18,7 @@ class Settings {
 			'recipient_email' => __( 'Recipient email', 'Zontact' ),
 			'subject' => __( 'Email subject', 'Zontact' ),
 			'save_messages' => __( 'Save messages to DB', 'Zontact' ),
+			'data_retention_days' => __( 'Data retention (days)', 'Zontact' ),
 			'button_position' => __( 'Button position', 'Zontact' ),
 			'accent_color' => __( 'Accent color', 'Zontact' ),
 			'consent_text' => __( 'Consent text', 'Zontact' ),
@@ -44,6 +45,11 @@ class Settings {
 		$name = 'zontact_options[' . esc_attr( $key ) . ']';
 		if ( 'save_messages' === $key ) {
 			echo '<label><input type="checkbox" name="' . esc_attr( $name ) . '" value="1"' . checked( $value, true, false ) . '> ' . esc_html__( 'Store form submissions as private posts (no tracking otherwise).', 'Zontact' ) . '</label>';
+			return;
+		}
+		if ( 'data_retention_days' === $key ) {
+			echo '<input type="number" class="small-text" name="' . esc_attr( $name ) . '" value="' . esc_attr( $value ) . '" min="1" max="365">';
+			echo '<p class="description">' . esc_html__( 'How many days to keep saved messages (GDPR compliance).', 'Zontact' ) . '</p>';
 			return;
 		}
 		if ( 'button_position' === $key ) {

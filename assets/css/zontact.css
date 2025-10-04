@@ -36,9 +36,9 @@
 .zontact--hp{position:absolute;left:-10000px}
 
 /* Consent checkbox */
-.zontact-consent label{display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.4}
-.zontact-consent input[type="checkbox"]{margin:0;flex-shrink:0;margin-top:2px}
-.zontact-consent__text{color:#6b7280}
+.zontact-consent label{display:flex;align-items:flex-start;gap:6px;cursor:pointer;font-size:13px;line-height:1.4;margin:0}
+.zontact-consent input[type="checkbox"]{margin:0;flex-shrink:0;margin-top:1px;width:16px;height:16px}
+.zontact-consent__text{color:#6b7280;flex:1;word-wrap:break-word}
 
 /* Mobile responsive */
 @media (max-width: 640px){
