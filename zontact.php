@@ -1,13 +1,13 @@
 <?php
 /**
  * Plugin Name: Zontact
- * Description: One button, one form, zero hassle. Floating contact button opens an accessible modal with a 3‑field form. Submits by email with optional DB save. No tracking.
+ * Description: One button, one form, zero hassle. Floating contact button opens an accessible modal with a contact form.
  * Version: 0.1.0
  * Author: Zontact
  * Text Domain: Zontact
  * Requires at least: 6.0
  * Requires PHP: 7.4
- * License: GPLv2 or later
+ * License: GPLv3 or later
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
