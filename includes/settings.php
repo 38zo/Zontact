@@ -1,82 +1,167 @@
 <?php
+/**
+ * Admin settings for Zontact plugin.
+ *
+ * @package ThirtyEightZo\Zontact
+ */
 
 namespace ThirtyEightZo\Zontact;
 
-if ( ! defined( 'ABSPATH' ) ) { exit; }
+defined( 'ABSPATH' ) || exit;
 
+/**
+ * Class Settings
+ *
+ * Registers and renders the Zontact settings page.
+ */
 class Settings {
-	public static function register() {
-		register_setting( 'zontact', 'zontact_options', array(
-			'type' => 'array',
-			'sanitize_callback' => [ __CLASS__, 'sanitize' ],
-			'default' => Options::defaults(),
-		) );
 
-		add_settings_section( 'zontact_main', __( 'General', 'Zontact' ), '__return_null', 'zontact' );
+	/**
+	 * Register settings and admin menu.
+	 *
+	 * @return void
+	 */
+	public static function register(): void {
+		register_setting(
+			'zontact',
+			'zontact_options',
+			array(
+				'type'              => 'array',
+				'sanitize_callback' => array( __CLASS__, 'sanitize' ),
+				'default'           => Options::defaults(),
+			)
+		);
+
+		add_settings_section(
+			'zontact_main',
+			__( 'General', 'zontact' ),
+			'__return_null',
+			'zontact'
+		);
 
 		$fields = array(
-			'recipient_email' => __( 'Recipient email', 'Zontact' ),
-			'subject' => __( 'Email subject', 'Zontact' ),
-			'save_messages' => __( 'Save messages to DB', 'Zontact' ),
-			'data_retention_days' => __( 'Data retention (days)', 'Zontact' ),
-			'button_position' => __( 'Button position', 'Zontact' ),
-			'accent_color' => __( 'Accent color', 'Zontact' ),
-			'consent_text' => __( 'Consent text', 'Zontact' ),
-			'success_message' => __( 'Success message', 'Zontact' ),
+			'recipient_email'    => __( 'Recipient email', 'zontact' ),
+			'subject'            => __( 'Email subject', 'zontact' ),
+			'save_messages'      => __( 'Save messages to DB', 'zontact' ),
+			'data_retention_days' => __( 'Data retention (days)', 'zontact' ),
+			'button_position'    => __( 'Button position', 'zontact' ),
+			'accent_color'       => __( 'Accent color', 'zontact' ),
+			'consent_text'       => __( 'Consent text', 'zontact' ),
+			'success_message'    => __( 'Success message', 'zontact' ),
 		);
 
 		foreach ( $fields as $key => $label ) {
-			add_settings_field( $key, $label, [ __CLASS__, 'render_field' ], 'zontact', 'zontact_main', array( 'key' => $key ) );
+			add_settings_field(
+				$key,
+				$label,
+				array( __CLASS__, 'render_field' ),
+				'zontact',
+				'zontact_main',
+				array( 'key' => $key )
+			);
 		}
 
-		add_action( 'admin_menu', function(){
-			add_options_page( 'Zontact', 'Zontact', 'manage_options', 'zontact', [ __CLASS__, 'render_settings_page' ] );
-		} );
+		add_action(
+			'admin_menu',
+			function (): void {
+				add_options_page(
+					'Zontact',
+					'Zontact',
+					'manage_options',
+					'zontact',
+					array( __CLASS__, 'render_settings_page' )
+				);
+			}
+		);
+
+		/**
+		 * Fires after all Zontact settings are registered.
+		 */
+		do_action( 'zontact_register_settings' );
 	}
 
-	public static function sanitize( $input ) {
+	/**
+	 * Sanitize settings input.
+	 *
+	 * @param array $input Raw input data.
+	 * @return array Sanitized settings.
+	 */
+	public static function sanitize( array $input ): array {
 		return Options::sanitize( $input );
 	}
 
-	public static function render_field( $args ) {
-		$key = $args['key'];
-		$opts = Options::get();
+	/**
+	 * Render a field in the settings page.
+	 *
+	 * @param array $args Field arguments.
+	 * @return void
+	 */
+	public static function render_field( array $args ): void {
+		$key   = $args['key'];
+		$opts  = Options::get();
 		$value = isset( $opts[ $key ] ) ? $opts[ $key ] : '';
-		$name = 'zontact_options[' . esc_attr( $key ) . ']';
-		if ( 'save_messages' === $key ) {
-			echo '<label><input type="checkbox" name="' . esc_attr( $name ) . '" value="1"' . checked( $value, true, false ) . '> ' . esc_html__( 'Store form submissions as private posts (no tracking otherwise).', 'Zontact' ) . '</label>';
-			return;
+		$name  = 'zontact_options[' . esc_attr( $key ) . ']';
+
+		switch ( $key ) {
+			case 'save_messages':
+				printf(
+					'<label><input type="checkbox" name="%1$s" value="1" %2$s> %3$s</label>',
+					esc_attr( $name ),
+					checked( $value, true, false ),
+					esc_html__( 'Store form submissions as private posts (no tracking otherwise).', 'zontact' )
+				);
+				return;
+
+			case 'data_retention_days':
+				printf(
+					'<input type="number" class="small-text" name="%1$s" value="%2$s" min="1" max="365">',
+					esc_attr( $name ),
+					esc_attr( $value )
+				);
+				echo '<p class="description">' . esc_html__( 'How many days to keep saved messages (GDPR compliance).', 'zontact' ) . '</p>';
+				return;
+
+			case 'button_position':
+				?>
+				<select name="<?php echo esc_attr( $name ); ?>">
+					<option value="right" <?php selected( $value, 'right' ); ?>><?php esc_html_e( 'Right', 'zontact' ); ?></option>
+					<option value="left" <?php selected( $value, 'left' ); ?>><?php esc_html_e( 'Left', 'zontact' ); ?></option>
+				</select>
+				<?php
+				return;
+
+			default:
+				$input_type = ( 'accent_color' === $key ) ? 'color' : 'text';
+				printf(
+					'<input type="%1$s" class="regular-text" name="%2$s" value="%3$s">',
+					esc_attr( $input_type ),
+					esc_attr( $name ),
+					esc_attr( $value )
+				);
 		}
-		if ( 'data_retention_days' === $key ) {
-			echo '<input type="number" class="small-text" name="' . esc_attr( $name ) . '" value="' . esc_attr( $value ) . '" min="1" max="365">';
-			echo '<p class="description">' . esc_html__( 'How many days to keep saved messages (GDPR compliance).', 'Zontact' ) . '</p>';
-			return;
-		}
-		if ( 'button_position' === $key ) {
-			echo '<select name="' . esc_attr( $name ) . '">';
-			echo '<option value="right"' . selected( $value, 'right', false ) . '>' . esc_html__( 'Right', 'Zontact' ) . '</option>';
-			echo '<option value="left"' . selected( $value, 'left', false ) . '>' . esc_html__( 'Left', 'Zontact' ) . '</option>';
-			echo '</select>';
-			return;
-		}
-		$input_type = ( 'accent_color' === $key ) ? 'color' : 'text';
-		echo '<input type="' . esc_attr( $input_type ) . '" class="regular-text" name="' . esc_attr( $name ) . '" value="' . esc_attr( $value ) . '">';
 	}
 
-	public static function render_settings_page() {
-		if ( ! current_user_can( 'manage_options' ) ) { return; }
+	/**
+	 * Render the plugin settings page.
+	 *
+	 * @return void
+	 */
+	public static function render_settings_page(): void {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
 		?>
-		<div class="wrap">
-			<h1>Zontact</h1>
-			<p><em><?php echo esc_html__( 'One button, one form, zero hassle.', 'Zontact' ); ?></em></p>
+		<div class="wrap zontact-settings">
+			<h1><?php esc_html_e( 'Zontact', 'zontact' ); ?></h1>
+			<p><em><?php esc_html_e( 'One button, one form, zero hassle.', 'zontact' ); ?></em></p>
 			<form action="options.php" method="post">
-				<?php settings_fields( 'zontact' ); ?>
-				<?php do_settings_sections( 'zontact' ); ?>
-				<?php submit_button(); ?>
+				<?php
+				settings_fields( 'zontact' );
+				do_settings_sections( 'zontact' );
+				submit_button();
+				?>
 			</form>
 		</div>
 		<?php
 	}
 }
-
-

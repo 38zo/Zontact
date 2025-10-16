@@ -110,8 +110,12 @@ final class Plugin {
 	 */
 	public function init(): void {
 		foreach ( self::MODULES as $module ) {
-			if ( class_exists( $module ) && method_exists( $module, 'register' ) ) {
-				$module::register();
+			if ( class_exists( $module ) ) {
+				$instance = new $module();
+
+				if ( method_exists( $instance, 'register' ) ) {
+					$instance->register();
+				}
 			}
 		}
 	}
