@@ -1,38 +1,37 @@
 {
     "name": "38zo/zontact",
     "description": "One button, one form, zero hassle.",
-    "minimum-stability": "stable",
     "type": "wordpress-plugin",
-    "license": "GPL-3.0",
+    "license": "GPL-3.0-or-later",
+    "minimum-stability": "stable",
+    "prefer-stable": true,
     "authors": [
-    {
-        "name": "38zo",
-        "email": "frenziecodes@gmail.com"
-    }
+        {
+            "name": "38zo",
+            "email": "frenziecodes@gmail.com"
+        }
     ],
     "autoload": {
-    "psr-4": {
-        "38zo\\Zontact\\": "includes/"
+        "psr-4": {
+            "ThirtyEightZo\\Zontact\\": "includes/"
+        }
     },
-    "classmap": [
-        "includes/"
-    ]
+    "require": {
+        "composer/installers": "^2.0"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.7",
+        "wp-coding-standards/wpcs": "^3.0"
     },
     "extra": {
         "installer-paths": {
             "wp-content/plugins/{$name}/": ["type:wordpress-plugin"]
         }
     },
-    "require-dev": {
-    "squizlabs/php_codesniffer": "3.*",
-    "wp-coding-standards/wpcs": "2.*"
-    },
     "config": {
-    "allow-plugins": {
-        "composer/installers": true
-    }
-    },
-    "require": {
-        "composer/installers": "^1.12"
+        "allow-plugins": {
+            "composer/installers": true
+        },
+        "sort-packages": true
     }
 }
