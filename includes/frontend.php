@@ -1,6 +1,6 @@
 <?php
 
-namespace Zontact;
+namespace ThirtyEightZo\Zontact;
 
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 

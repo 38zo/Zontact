@@ -1,11 +1,12 @@
 <?php
 
-namespace Zontact;
+namespace ThirtyEightZo\Zontact;
 
-if ( ! defined( 'ABSPATH' ) ) { exit; }
+defined( 'ABSPATH' ) || exit;
 
 final class Plugin {
-	private static $instance;
+
+	private static $instance = null;
 
 	public static function instance() {
 		if ( null === self::$instance ) {
@@ -35,5 +36,3 @@ final class Plugin {
 		Ajax::register();
 	}
 }
-
-
