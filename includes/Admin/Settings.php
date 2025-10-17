@@ -5,7 +5,9 @@
  * @package ThirtyEightZo\Zontact
  */
 
-namespace ThirtyEightZo\Zontact;
+namespace ThirtyEightZo\Zontact\Admin;
+
+use ThirtyEightZo\Zontact\Options;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -60,19 +62,6 @@ class Settings {
 				array( 'key' => $key )
 			);
 		}
-
-		add_action(
-			'admin_menu',
-			function (): void {
-				add_options_page(
-					'Zontact',
-					'Zontact',
-					'manage_options',
-					'zontact',
-					array( __CLASS__, 'render_settings_page' )
-				);
-			}
-		);
 
 		/**
 		 * Fires after all Zontact settings are registered.
@@ -152,7 +141,7 @@ class Settings {
 		}
 		?>
 		<div class="wrap zontact-settings">
-			<h1><?php esc_html_e( 'Zontact', 'zontact' ); ?></h1>
+			<h1><?php esc_html_e( zontact_plugin_name(), 'zontact' ); ?></h1>
 			<p><em><?php esc_html_e( 'One button, one form, zero hassle.', 'zontact' ); ?></em></p>
 			<form action="options.php" method="post">
 				<?php

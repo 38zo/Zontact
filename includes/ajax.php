@@ -36,7 +36,7 @@ final class Ajax {
 
 		$name    = sanitize_text_field( wp_unslash( $_POST['name'] ?? '' ) );
 		$email   = sanitize_email( wp_unslash( $_POST['email'] ?? '' ) );
-		$message = wp_kses_post( wp_unslash( $_POST['message'] ?? '' ) );
+		$message = zontact_sanitize_html( wp_unslash( $_POST['message'] ?? '' ) );
 		$website = sanitize_text_field( wp_unslash( $_POST['website'] ?? '' ) );
 		$consent = ! empty( $_POST['consent'] );
 

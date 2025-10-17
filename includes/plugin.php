@@ -6,6 +6,8 @@
  */
 
 namespace ThirtyEightZo\Zontact;
+use ThirtyEightZo\Zontact\Admin\Settings;
+use ThirtyEightZo\Zontact\Admin\Menu;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -28,7 +30,6 @@ final class Plugin {
 	 */
 	private const MODULES = [
 		Cpt::class,
-		Settings::class,
 		Assets::class,
 		Frontend::class,
 		Ajax::class,
@@ -117,6 +118,11 @@ final class Plugin {
 					$instance->register();
 				}
 			}
+		}
+
+		if ( is_admin() ) {
+			Menu::register();
+			Settings::register();
 		}
 	}
 }

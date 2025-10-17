@@ -79,7 +79,7 @@ class Options {
 			: $defaults['recipient_email'];
 
 		$output['subject']           = isset( $input['subject'] )
-			? wp_kses_post( $input['subject'] )
+			? zontact_sanitize_html( $input['subject'] )
 			: $defaults['subject'];
 
 		$output['save_messages']     = ! empty( $input['save_messages'] );
@@ -97,11 +97,11 @@ class Options {
 			: $defaults['accent_color'];
 
 		$output['consent_text']      = isset( $input['consent_text'] )
-			? wp_kses_post( $input['consent_text'] )
+			? zontact_sanitize_html( $input['consent_text'] )
 			: $defaults['consent_text'];
 
 		$output['success_message']   = isset( $input['success_message'] )
-			? wp_kses_post( $input['success_message'] )
+			? zontact_sanitize_html( $input['success_message'] )
 			: $defaults['success_message'];
 
 		return $output;

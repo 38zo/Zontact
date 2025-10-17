@@ -22,14 +22,17 @@ define( 'ZONTACT_URL', plugin_dir_url( ZONTACT_FILE ) );
 /**
  * Autoload dependencies.
  */
-$autoload = __DIR__ . '/vendor/autoload.php';
+$autoload = ZONTACT_PATH . '/vendor/autoload.php';
 if ( file_exists( $autoload ) ) {
-	require_once $autoload;
-} else {
-	add_action( 'admin_notices', function () {
-		echo '<div class="notice notice-error"><p><strong>Zontact:</strong> Autoloader not found. Please run <code>composer install</code>.</p></div>';
-	});
-	return;
+    require_once $autoload;
+}
+
+/**
+ * Include necessary files.
+ */
+$functions = ZONTACT_PATH . '/includes/functions.php';
+if ( file_exists( $functions ) ) {
+	require_once $functions;
 }
 
 /**

@@ -32,7 +32,7 @@ final class Frontend {
 		$opts          = Options::get();
 		$position_class = ( 'left' === $opts['button_position'] ) ? 'zontact-left' : 'zontact-right';
 		$accent         = esc_attr( $opts['accent_color'] );
-		$consent_text   = trim( wp_kses_post( $opts['consent_text'] ) );
+		$consent_text   = trim( zontact_sanitize_html( $opts['consent_text'] ) );
 
 		?>
 		<div 

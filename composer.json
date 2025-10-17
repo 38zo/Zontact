@@ -14,7 +14,10 @@
     "autoload": {
         "psr-4": {
             "ThirtyEightZo\\Zontact\\": "includes/"
-        }
+        },
+        "classmap": [
+            "includes"
+        ]
     },
     "require": {
         "composer/installers": "^2.0"
