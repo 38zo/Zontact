@@ -118,7 +118,7 @@ final class Ajax {
 	}
 
 	/**
-	 * Optionally store message as CPT entry.
+	 * Store message in database if enabled.
 	 *
 	 * @param string $name    Sender name.
 	 * @param string $email   Sender email.
@@ -128,24 +128,35 @@ final class Ajax {
 	 * @return void
 	 */
 	private function store_message( string $name, string $email, string $message, bool $consent, array $options ): void {
-		if ( empty( $options['save_messages'] ) || ! post_type_exists( 'zontact_message' ) ) {
+		if ( empty( $options['save_messages'] ) ) {
 			return;
 		}
 
-		wp_insert_post(
+		$ip = sanitize_text_field( $_SERVER['REMOTE_ADDR'] ?? '' );
+		$ua = sanitize_text_field( $_SERVER['HTTP_USER_AGENT'] ?? '' );
+
+		$meta = [
+			'consent' => $consent ? 'yes' : 'no',
+		];
+
+		// Allow extensions to augment stored meta before insert.
+		$meta = (array) apply_filters( 'zontact_store_meta', $meta, compact( 'name', 'email', 'message', 'consent', 'options' ) );
+
+		// Ensure table exists before attempting insert (self-healing in case activation didn't run).
+		Database::maybe_install();
+
+		Database::insert_message(
 			[
-				'post_type'    => 'zontact_message',
-				'post_status'  => 'private',
-				'post_title'   => wp_trim_words( "{$name} – " . wp_strip_all_tags( $message ), 8, '…' ),
-				'post_content' => $message,
-				'meta_input'   => [
-					'zontact_email'   => $email,
-					'zontact_consent' => $consent ? 'yes' : 'no',
-					'zontact_ip'      => sanitize_text_field( $_SERVER['REMOTE_ADDR'] ?? '' ),
-					'zontact_ua'      => sanitize_text_field( $_SERVER['HTTP_USER_AGENT'] ?? '' ),
-				],
-			],
-			true
+				'form_key'   => 'default',
+				'name'       => $name,
+				'email'      => $email,
+				'phone'      => null,
+				'subject'    => $options['subject'] ?? null,
+				'message'    => $message,
+				'meta'       => wp_json_encode( $meta ),
+				'ip_address' => $ip,
+				'user_agent' => $ua,
+			]
 		);
 	}
 }

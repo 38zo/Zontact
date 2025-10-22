@@ -6,6 +6,7 @@
  */
 
 namespace ThirtyEightZo\Zontact;
+use ThirtyEightZo\Zontact\Database;
 use ThirtyEightZo\Zontact\Admin\Settings;
 use ThirtyEightZo\Zontact\Admin\Menu;
 
@@ -29,7 +30,6 @@ final class Plugin {
 	 * @var array
 	 */
 	private const MODULES = [
-		Cpt::class,
 		Assets::class,
 		Frontend::class,
 		Ajax::class,
@@ -55,6 +55,7 @@ final class Plugin {
 
 		// Initialize the plugin.
 		add_action( 'init', [ $this, 'init' ] );
+		add_action( 'init', [ $this, 'maybe_install_db' ], 5 );
 
 		// Register activation hook.
 		register_activation_hook( ZONTACT_FILE, [ __CLASS__, 'activate' ] );
@@ -91,17 +92,26 @@ final class Plugin {
 	 * @return void
 	 */
 	public static function activate(): void {
-		// Initialize default options.
-		if ( ! get_option( 'zontact_options' ) && class_exists( Options::class ) ) {
-			update_option( 'zontact_options', Options::defaults() );
-		}
+        // Create or upgrade database tables.
+        if ( class_exists( Database::class ) ) {
+            Database::create_tables();
+        }
 
-		// Register CPTs before flushing.
-		if ( class_exists( Cpt::class ) ) {
-			Cpt::register();
-		}
+        // Initialize default options.
+        if ( ! get_option( 'zontact_options' ) && class_exists( Options::class ) ) {
+            update_option( 'zontact_options', Options::defaults() );
+        }
+	}
 
-		flush_rewrite_rules();
+	/**
+	 * Ensure DB is installed when needed (e.g., activation not triggered in some environments).
+	 *
+	 * @return void
+	 */
+	public function maybe_install_db(): void {
+		if ( class_exists( Database::class ) ) {
+			Database::maybe_install();
+		}
 	}
 
 	/**

@@ -41,5 +41,13 @@ if ( file_exists( $functions ) ) {
 add_action( 'plugins_loaded', function () {
 	if ( class_exists( \ThirtyEightZo\Zontact\Plugin::class ) ) {
 		\ThirtyEightZo\Zontact\Plugin::instance();
+		/**
+		 * Fires after Zontact has been bootstrapped.
+		 *
+		 * Allows third-parties to hook once the plugin is initialized.
+		 *
+		 * @since 1.0.0
+		 */
+		do_action( 'zontact_bootstrapped' );
 	}
 });
