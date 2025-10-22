@@ -32,7 +32,7 @@ final class Menu {
 			$menu_title,               // Page title.
 			$menu_title,               // Menu title.
 			'manage_options',          // Capability.
-			'zontact',                 // Menu slug.
+			'Zontact',                 // Menu slug.
 			[ __CLASS__, 'render_welcome_page' ], // Callback.
 			'dashicons-email-alt2',    // Icon.
 			58                         // Position.
@@ -40,9 +40,9 @@ final class Menu {
 
 		// Default submenus.
 		self::add_submenu(
-			'zontact',
-			__( 'Settings', 'zontact' ),
-			__( 'Settings', 'zontact' ),
+			'Zontact',
+			__( 'Settings', 'Zontact' ),
+			__( 'Settings', 'Zontact' ),
 			'manage_options',
 			'zontact-settings',
 			[ Settings::class, 'render_settings_page' ]
@@ -86,16 +86,16 @@ final class Menu {
 		<div class="wrap zontact-welcome">
             <h1><?php echo esc_html( zontact_plugin_name() ); ?></h1>
             <p>
-                <?php
-                /* translators: %s: plugin name */
+                <?php                
                 printf(
-                    esc_html__( 'Welcome to %s! One button. One form. Zero hassle.', 'zontact' ),
+					/* translators: %s: plugin name */
+                    esc_html__( 'Welcome to %s! One button. One form. Zero hassle.', 'Zontact' ),
                     esc_html( zontact_plugin_name() )
                 );
                 ?>
             </p>
 			<p><a href="<?php echo esc_url( admin_url( 'admin.php?page=zontact-settings' ) ); ?>" class="button button-primary">
-				<?php esc_html_e( 'Go to Settings', 'zontact' ); ?>
+				<?php esc_html_e( 'Go to Settings', 'Zontact' ); ?>
 			</a></p>
 		</div>
 		<?php

@@ -35,14 +35,14 @@ final class Assets {
 		$options = Options::get();
 
 		wp_enqueue_style(
-			'zontact',
+			'Zontact',
 			ZONTACT_URL . 'assets/css/zontact.css',
 			[],
 			ZONTACT_VERSION
 		);
 
 		wp_enqueue_script(
-			'zontact',
+			'Zontact',
 			ZONTACT_URL . 'assets/js/zontact.js',
 			[],
 			ZONTACT_VERSION,
@@ -50,15 +50,15 @@ final class Assets {
 		);
 
 		wp_localize_script(
-			'zontact',
+			'Zontact',
 			'Zontact',
 			[
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
 				'nonce'    => wp_create_nonce( 'zontact_submit' ),
 				'strings'  => [
-					'sending' => __( 'Sending…', 'zontact' ),
-					'error'   => __( 'Please fix the errors and try again.', 'zontact' ),
-					'success' => $options['success_message'] ?? __( 'Message sent successfully!', 'zontact' ),
+					'sending' => __( 'Sending…', 'Zontact' ),
+					'error'   => __( 'Please fix the errors and try again.', 'Zontact' ),
+					'success' => $options['success_message'] ?? __( 'Message sent successfully!', 'Zontact' ),
 				],
 			]
 		);
@@ -74,7 +74,7 @@ final class Assets {
 		$accent  = ! empty( $options['accent_color'] ) ? esc_attr( $options['accent_color'] ) : '#0073aa';
 
 		wp_add_inline_style(
-			'zontact',
+			'Zontact',
 			":root { --zontact-accent: {$accent}; }"
 		);
 	}

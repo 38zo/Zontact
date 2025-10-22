@@ -26,7 +26,7 @@ class Options {
 			'recipient_email'   => get_option( 'admin_email' ),
 			'subject'           => sprintf(
 				/* translators: %s: site name */
-				__( 'New message from %s', 'zontact' ),
+				__( 'New message from %s', 'Zontact' ),
 				wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES )
 			),
 			'save_messages'     => false,
@@ -35,9 +35,9 @@ class Options {
 			'accent_color'      => '#2563eb',
 			'consent_text'      => __(
 				'I agree to the processing of my personal data (name, email, message) for the purpose of responding to my inquiry. This data will be stored securely and not shared with third parties.',
-				'zontact'
+				'Zontact'
 			),
-			'success_message'   => __( 'Thanks! Your message has been sent.', 'zontact' ),
+			'success_message'   => __( 'Thanks! Your message has been sent.', 'Zontact' ),
 		);
 
 		/**

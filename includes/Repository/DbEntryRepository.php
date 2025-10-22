@@ -69,18 +69,44 @@ final class DbEntryRepository implements EntryRepositoryInterface {
 		return (int) $wpdb->get_var( $sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery
 	}
 
-	/** @inheritDoc */
+	/**
+	 * Deletes messages from the database by their IDs.
+	 *
+	 * This method safely deletes rows from the messages table corresponding
+	 * to the given array of IDs. All IDs are sanitized before use.
+	 * The query uses a prepared statement with dynamic placeholders for safety.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param int[] $ids List of message IDs to delete.
+	 * @return int Number of rows affected by the delete operation.
+	 */
 	public function delete( array $ids ): int {
 		global $wpdb;
+
+		// The table name is internal and not user-supplied.
 		$table = Database::table_messages();
-		$ids   = array_values( array_filter( array_map( 'intval', $ids ) ) );
+
+		// Sanitize the IDs.
+		$ids = array_values( array_filter( array_map( 'absint', $ids ) ) );
 		if ( empty( $ids ) ) {
 			return 0;
 		}
 
+		// Build placeholders for safe prepared statement (%d,%d,%d,...).
 		$placeholders = implode( ',', array_fill( 0, count( $ids ), '%d' ) );
-		$sql          = $wpdb->prepare( "DELETE FROM {$table} WHERE id IN ({$placeholders})", $ids ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-		$wpdb->query( $sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery
+
+		/*
+		* The table name and placeholders are generated internally.
+		* PHPCS cannot detect the dynamic placeholders in $wpdb->prepare(),
+		* but the query is safely prepared and sanitized.
+		*/
+		// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare, WordPress.DB.PreparedSQL.NotPrepared
+		$sql = $wpdb->prepare( "DELETE FROM `{$table}` WHERE id IN ($placeholders)", $ids );
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
+		$wpdb->query( $sql );
+
 		return (int) $wpdb->rows_affected;
 	}
 }

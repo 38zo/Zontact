@@ -45,12 +45,12 @@ final class EntriesListTable extends \WP_List_Table {
 	public function get_columns(): array {
 		return [
 			'cb'        => '<input type="checkbox" />',
-			'id'        => __( 'ID', 'zontact' ),
-			'name'      => __( 'Name', 'zontact' ),
-			'email'     => __( 'Email', 'zontact' ),
-			'subject'   => __( 'Subject', 'zontact' ),
-			'message'   => __( 'Message', 'zontact' ),
-			'created_at'=> __( 'Date', 'zontact' ),
+			'id'        => __( 'ID', 'Zontact' ),
+			'name'      => __( 'Name', 'Zontact' ),
+			'email'     => __( 'Email', 'Zontact' ),
+			'subject'   => __( 'Subject', 'Zontact' ),
+			'message'   => __( 'Message', 'Zontact' ),
+			'created_at'=> __( 'Date', 'Zontact' ),
 		];
 	}
 
@@ -91,7 +91,7 @@ final class EntriesListTable extends \WP_List_Table {
 	/** @inheritDoc */
 	protected function get_bulk_actions(): array {
 		return [
-			'delete' => __( 'Delete', 'zontact' ),
+			'delete' => __( 'Delete', 'Zontact' ),
 		];
 	}
 
@@ -111,8 +111,14 @@ final class EntriesListTable extends \WP_List_Table {
 	/** @inheritDoc */
 	public function prepare_items() {
 		$per_page = 30;
-		$page     = max( 1, (int) ( $_GET['paged'] ?? 1 ) );
-		$search   = isset( $_REQUEST['s'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['s'] ) ) : null;
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$paged_raw = isset( $_GET['paged'] ) ? absint( wp_unslash( $_GET['paged'] ) ) : 1;
+
+		$page      = max( 1, (int) $paged_raw );
+
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$search    = isset( $_REQUEST['s'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['s'] ) ) : null;
+
 
 		$this->_column_headers = [ $this->get_columns(), [], $this->get_sortable_columns() ];
 

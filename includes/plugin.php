@@ -68,7 +68,7 @@ final class Plugin {
 	 * @return void
 	 */
 	private function define_constants(): void {
-		$this->define( 'ZONTACT_VERSION', '0.1.0' );
+		$this->define( 'ZONTACT_VERSION', '1.0.0' );
 		$this->define( 'ZONTACT_SLUG', 'zontact' );
 		$this->define( 'ZONTACT_PATH', plugin_dir_path( ZONTACT_FILE ) );
 		$this->define( 'ZONTACT_URL', plugin_dir_url( ZONTACT_FILE ) );

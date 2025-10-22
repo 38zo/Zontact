@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Zontact
  * Description:       One button, one form, zero hassle. Floating contact button opens an accessible modal with a contact form.
- * Version:           0.1.0
+ * Version:           1.0.0
  * Author:            38zo
  * Author URI:        https://38zo.com
  * Text Domain:       zontact
@@ -36,6 +36,13 @@ if ( file_exists( $functions ) ) {
 }
 
 /**
+ * Load plugin text domain.
+ */
+add_action( 'plugins_loaded', function () {
+	load_plugin_textdomain( 'Zontact', false, dirname( plugin_basename( ZONTACT_FILE ) ) . '/languages/' );
+});
+
+/**
  * Bootstrap the plugin.
  */
 add_action( 'plugins_loaded', function () {
@@ -48,6 +55,6 @@ add_action( 'plugins_loaded', function () {
 		 *
 		 * @since 1.0.0
 		 */
-		do_action( 'zontact_bootstrapped' );
+		do_action( 'Zontact_bootstrapped' );
 	}
 });

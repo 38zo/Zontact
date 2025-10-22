@@ -25,7 +25,7 @@ class Settings {
 	 */
 	public static function register(): void {
 		register_setting(
-			'zontact',
+			'Zontact',
 			'zontact_options',
 			array(
 				'type'              => 'array',
@@ -36,20 +36,20 @@ class Settings {
 
 		add_settings_section(
 			'zontact_main',
-			__( 'General', 'zontact' ),
+			__( 'General', 'Zontact' ),
 			'__return_null',
-			'zontact'
+			'Zontact'
 		);
 
 		$fields = array(
-			'recipient_email'    => __( 'Recipient email', 'zontact' ),
-			'subject'            => __( 'Email subject', 'zontact' ),
-			'save_messages'      => __( 'Save messages to DB', 'zontact' ),
-			'data_retention_days' => __( 'Data retention (days)', 'zontact' ),
-			'button_position'    => __( 'Button position', 'zontact' ),
-			'accent_color'       => __( 'Accent color', 'zontact' ),
-			'consent_text'       => __( 'Consent text', 'zontact' ),
-			'success_message'    => __( 'Success message', 'zontact' ),
+			'recipient_email'    => __( 'Recipient email', 'Zontact' ),
+			'subject'            => __( 'Email subject', 'Zontact' ),
+			'save_messages'      => __( 'Save messages to DB', 'Zontact' ),
+			'data_retention_days' => __( 'Data retention (days)', 'Zontact' ),
+			'button_position'    => __( 'Button position', 'Zontact' ),
+			'accent_color'       => __( 'Accent color', 'Zontact' ),
+			'consent_text'       => __( 'Consent text', 'Zontact' ),
+			'success_message'    => __( 'Success message', 'Zontact' ),
 		);
 
 		foreach ( $fields as $key => $label ) {
@@ -57,7 +57,7 @@ class Settings {
 				$key,
 				$label,
 				array( __CLASS__, 'render_field' ),
-				'zontact',
+				'Zontact',
 				'zontact_main',
 				array( 'key' => $key )
 			);
@@ -97,7 +97,7 @@ class Settings {
 					'<label><input type="checkbox" name="%1$s" value="1" %2$s> %3$s</label>',
 					esc_attr( $name ),
 					checked( $value, true, false ),
-					esc_html__( 'Store form submissions as private posts (no tracking otherwise).', 'zontact' )
+					esc_html__( 'Store form submissions as private posts (no tracking otherwise).', 'Zontact' )
 				);
 				return;
 
@@ -107,14 +107,14 @@ class Settings {
 					esc_attr( $name ),
 					esc_attr( $value )
 				);
-				echo '<p class="description">' . esc_html__( 'How many days to keep saved messages (GDPR compliance).', 'zontact' ) . '</p>';
+				echo '<p class="description">' . esc_html__( 'How many days to keep saved messages (GDPR compliance).', 'Zontact' ) . '</p>';
 				return;
 
 			case 'button_position':
 				?>
 				<select name="<?php echo esc_attr( $name ); ?>">
-					<option value="right" <?php selected( $value, 'right' ); ?>><?php esc_html_e( 'Right', 'zontact' ); ?></option>
-					<option value="left" <?php selected( $value, 'left' ); ?>><?php esc_html_e( 'Left', 'zontact' ); ?></option>
+					<option value="right" <?php selected( $value, 'right' ); ?>><?php esc_html_e( 'Right', 'Zontact' ); ?></option>
+					<option value="left" <?php selected( $value, 'left' ); ?>><?php esc_html_e( 'Left', 'Zontact' ); ?></option>
 				</select>
 				<?php
 				return;
@@ -141,12 +141,12 @@ class Settings {
 		}
 		?>
 		<div class="wrap zontact-settings">
-			<h1><?php esc_html_e( zontact_plugin_name(), 'zontact' ); ?></h1>
-			<p><em><?php esc_html_e( 'One button, one form, zero hassle.', 'zontact' ); ?></em></p>
+			<h1><?php echo esc_html( zontact_plugin_name() ); ?></h1>
+			<p><em><?php esc_html_e( 'One button, one form, zero hassle.', 'Zontact' ); ?></em></p>
 			<form action="options.php" method="post">
 				<?php
-				settings_fields( 'zontact' );
-				do_settings_sections( 'zontact' );
+				settings_fields( 'Zontact' );
+				do_settings_sections( 'Zontact' );
 				submit_button();
 				?>
 			</form>
