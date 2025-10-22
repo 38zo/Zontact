@@ -9,6 +9,7 @@ namespace ThirtyEightZo\Zontact;
 use ThirtyEightZo\Zontact\Database;
 use ThirtyEightZo\Zontact\Admin\Settings;
 use ThirtyEightZo\Zontact\Admin\Menu;
+use ThirtyEightZo\Zontact\Admin\EntriesPage;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -133,6 +134,7 @@ final class Plugin {
 		if ( is_admin() ) {
 			Menu::register();
 			Settings::register();
+			( new EntriesPage() )->register();
 		}
 	}
 }
