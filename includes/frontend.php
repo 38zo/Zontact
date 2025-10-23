@@ -31,13 +31,13 @@ final class Frontend {
 	public function render_form(): void {
 		$opts          = Options::get();
 		$position_class = ( 'left' === $opts['button_position'] ) ? 'zontact-left' : 'zontact-right';
-		$accent         = esc_attr( $opts['accent_color'] );
+		$accent = $opts['accent_color'];
 		$consent_text   = trim( zontact_sanitize_html( $opts['consent_text'] ) );
 
 		?>
 		<div 
 			class="zontact-root <?php echo esc_attr( $position_class ); ?>" 
-			data-accent="<?php echo $accent; ?>"
+			data-accent="<?php echo esc_attr( $accent ); ?>"
 		>
 			<button 
 				type="button" 
@@ -125,7 +125,9 @@ final class Frontend {
 			<div class="zontact-field zontact-consent">
 				<label>
 					<input name="consent" type="checkbox" required>
-					<span class="zontact-consent__text"><?php echo $consent_text; ?></span>
+					<span class="zontact-consent__text">
+						<?php echo wp_kses_post( $consent_text ); ?>
+					</span>
 				</label>
 			</div>
 		<?php endif; ?>
