@@ -154,7 +154,16 @@ final class Database {
 			]
 		);
 
-		return (int) $wpdb->insert_id;
+		$insert_id = (int) $wpdb->insert_id;
+		
+		// Clear cache after successful insert.
+		if ( $insert_id > 0 ) {
+			// Clear common cache patterns for our plugin.
+			wp_cache_delete( 'zontact_entries_all', 'zontact' );
+			wp_cache_delete( 'zontact_count_all', 'zontact' );
+		}
+
+		return $insert_id;
 	}
 }
 
