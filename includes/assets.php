@@ -35,14 +35,14 @@ final class Assets {
 		$options = Options::get();
 
 		wp_enqueue_style(
-			'Zontact',
+			'zontact',
 			ZONTACT_URL . 'assets/css/zontact.css',
 			[],
 			ZONTACT_VERSION
 		);
 
 		wp_enqueue_script(
-			'Zontact',
+			'zontact',
 			ZONTACT_URL . 'assets/js/zontact.js',
 			[],
 			ZONTACT_VERSION,
@@ -50,8 +50,8 @@ final class Assets {
 		);
 
 		wp_localize_script(
-			'Zontact',
-			'Zontact',
+			'zontact',
+			'zontact',
 			[
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
 				'nonce'    => wp_create_nonce( 'zontact_submit' ),
@@ -74,7 +74,7 @@ final class Assets {
 		$accent  = ! empty( $options['accent_color'] ) ? esc_attr( $options['accent_color'] ) : '#0073aa';
 
 		wp_add_inline_style(
-			'Zontact',
+			'zontact',
 			":root { --zontact-accent: {$accent}; }"
 		);
 	}

@@ -7,6 +7,7 @@
 
 namespace ThirtyEightZo\Zontact;
 use ThirtyEightZo\Zontact\Database;
+use ThirtyEightZo\Zontact\Options;
 use ThirtyEightZo\Zontact\Admin\Settings;
 use ThirtyEightZo\Zontact\Admin\Menu;
 use ThirtyEightZo\Zontact\Admin\EntriesPage;
@@ -57,6 +58,11 @@ final class Plugin {
 		// Initialize the plugin.
 		add_action( 'init', [ $this, 'init' ] );
 		add_action( 'init', [ $this, 'maybe_install_db' ], 5 );
+		
+		// Register admin menu on admin_menu action.
+		if ( is_admin() ) {
+			add_action( 'admin_menu', [ $this, 'register_admin_menu' ] );
+		}
 
 		// Register activation hook.
 		register_activation_hook( ZONTACT_FILE, [ __CLASS__, 'activate' ] );
@@ -116,6 +122,15 @@ final class Plugin {
 	}
 
 	/**
+	 * Register admin menu.
+	 *
+	 * @return void
+	 */
+	public function register_admin_menu(): void {
+		Menu::register();
+	}
+
+	/**
 	 * Initialize all plugin modules.
 	 *
 	 * @return void
@@ -132,7 +147,6 @@ final class Plugin {
 		}
 
 		if ( is_admin() ) {
-			Menu::register();
 			Settings::register();
 			( new EntriesPage() )->register();
 		}
