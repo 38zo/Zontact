@@ -36,13 +36,6 @@ if ( file_exists( $functions ) ) {
 }
 
 /**
- * Load plugin text domain.
- */
-add_action( 'plugins_loaded', function () {
-	load_plugin_textdomain( 'Zontact', false, dirname( plugin_basename( ZONTACT_FILE ) ) . '/languages/' );
-});
-
-/**
  * Bootstrap the plugin.
  */
 add_action( 'plugins_loaded', function () {
