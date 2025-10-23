@@ -136,6 +136,8 @@ final class Database {
 
 		$values = wp_parse_args( $data, $defaults );
 
+		// Direct database write operation (INSERT) - caching not applicable for write operations.
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$wpdb->insert(
 			$table,
 			[
