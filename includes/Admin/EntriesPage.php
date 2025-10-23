@@ -50,7 +50,7 @@ final class EntriesPage {
 	public function add_menu(): void {
 		$capability = 'manage_options';
 		$hook = add_submenu_page(
-			'zontact',
+			'Zontact',
 			__( 'Entries', 'zontact' ),
 			__( 'Entries', 'zontact' ),
 			$capability,
