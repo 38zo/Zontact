@@ -47,7 +47,7 @@ final class Frontend {
 				aria-expanded="false"
 			>
 				<span class="zontact-button-label">
-					<?php echo esc_html__( 'Contact', 'Zontact' ); ?>
+					<?php echo esc_html__( 'Contact', 'zontact' ); ?>
 				</span>
 			</button>
 
@@ -63,11 +63,11 @@ final class Frontend {
 				<div class="zontact-modal__dialog" role="document">
 
 					<header class="zontact-modal__header">
-						<h2 id="zontact-title"><?php esc_html_e( 'Contact us', 'Zontact' ); ?></h2>
+						<h2 id="zontact-title"><?php esc_html_e( 'Contact us', 'zontact' ); ?></h2>
 						<button 
 							type="button" 
 							class="zontact-close" 
-							aria-label="<?php esc_attr_e( 'Close', 'Zontact' ); ?>" 
+							aria-label="<?php esc_attr_e( 'Close', 'zontact' ); ?>" 
 							data-zontact-close
 						>
 							&times;
@@ -81,7 +81,7 @@ final class Frontend {
 
 						<div class="zontact-actions">
 							<button type="submit" class="zontact-submit">
-								<?php esc_html_e( 'Send', 'Zontact' ); ?>
+								<?php esc_html_e( 'Send', 'zontact' ); ?>
 							</button>
 							<div class="zontact-status" role="status" aria-live="polite"></div>
 						</div>
@@ -102,17 +102,17 @@ final class Frontend {
 	private function render_fields( string $consent_text ): void {
 		?>
 		<div class="zontact-field">
-			<label for="zontact-name"><?php esc_html_e( 'Name', 'Zontact' ); ?></label>
+			<label for="zontact-name"><?php esc_html_e( 'Name', 'zontact' ); ?></label>
 			<input id="zontact-name" name="name" type="text" autocomplete="name" required>
 		</div>
 
 		<div class="zontact-field">
-			<label for="zontact-email"><?php esc_html_e( 'Email', 'Zontact' ); ?></label>
+			<label for="zontact-email"><?php esc_html_e( 'Email', 'zontact' ); ?></label>
 			<input id="zontact-email" name="email" type="email" autocomplete="email" required>
 		</div>
 
 		<div class="zontact-field">
-			<label for="zontact-message"><?php esc_html_e( 'Message', 'Zontact' ); ?></label>
+			<label for="zontact-message"><?php esc_html_e( 'Message', 'zontact' ); ?></label>
 			<textarea id="zontact-message" name="message" rows="4" required></textarea>
 		</div>
 

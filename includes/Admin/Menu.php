@@ -41,8 +41,8 @@ final class Menu {
 		// Default submenus.
 		self::add_submenu(
 			'Zontact',
-			__( 'Settings', 'Zontact' ),
-			__( 'Settings', 'Zontact' ),
+			__( 'Settings', 'zontact' ),
+			__( 'Settings', 'zontact' ),
 			'manage_options',
 			'zontact-settings',
 			[ Settings::class, 'render_settings_page' ]
@@ -89,13 +89,13 @@ final class Menu {
                 <?php                
                 printf(
 					/* translators: %s: plugin name */
-                    esc_html__( 'Welcome to %s! One button. One form. Zero hassle.', 'Zontact' ),
+                    esc_html__( 'Welcome to %s! One button. One form. Zero hassle.', 'zontact' ),
                     esc_html( zontact_plugin_name() )
                 );
                 ?>
             </p>
 			<p><a href="<?php echo esc_url( admin_url( 'admin.php?page=zontact-settings' ) ); ?>" class="button button-primary">
-				<?php esc_html_e( 'Go to Settings', 'Zontact' ); ?>
+				<?php esc_html_e( 'Go to Settings', 'zontact' ); ?>
 			</a></p>
 		</div>
 		<?php

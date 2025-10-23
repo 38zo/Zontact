@@ -50,9 +50,9 @@ final class EntriesPage {
 	public function add_menu(): void {
 		$capability = 'manage_options';
 		$hook = add_submenu_page(
-			'Zontact',
-			__( 'Entries', 'Zontact' ),
-			__( 'Entries', 'Zontact' ),
+			'zontact',
+			__( 'Entries', 'zontact' ),
+			__( 'Entries', 'zontact' ),
 			$capability,
 			'zontact-entries',
 			[ $this, 'render' ]
@@ -77,7 +77,7 @@ final class EntriesPage {
 	 */
 	public function render(): void {
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( esc_html__( 'You do not have permission to access this page.', 'Zontact' ) );
+			wp_die( esc_html__( 'You do not have permission to access this page.', 'zontact' ) );
 		}
 
 		$list_table = new EntriesListTable( $this->repository );
@@ -87,12 +87,12 @@ final class EntriesPage {
 		$search_value = isset( $_GET['s'] ) ? sanitize_text_field( wp_unslash( $_GET['s'] ) ) : '';
 		?>
 		<div class="wrap">
-			<h1 class="wp-heading-inline"><?php echo esc_html__( 'Zontact Entries', 'Zontact' ); ?></h1>
+			<h1 class="wp-heading-inline"><?php echo esc_html__( 'Zontact Entries', 'zontact' ); ?></h1>
 			<hr class="wp-header-end" />
 
 			<form method="post">
 				<?php wp_nonce_field( 'bulk-' . $list_table->_args['plural'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended ?>
-				<?php $list_table->search_box( __( 'Search entries', 'Zontact' ), 'zontact-entry' ); ?>
+				<?php $list_table->search_box( __( 'Search entries', 'zontact' ), 'zontact-entry' ); ?>
 				<?php $list_table->display(); ?>
 			</form>
 		</div>

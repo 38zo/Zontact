@@ -43,17 +43,17 @@ final class Ajax {
 		$errors = [];
 
 		if ( empty( $name ) ) {
-			$errors['name'] = __( 'Name is required.', 'Zontact' );
+			$errors['name'] = __( 'Name is required.', 'zontact' );
 		}
 		if ( empty( $email ) || ! is_email( $email ) ) {
-			$errors['email'] = __( 'A valid email address is required.', 'Zontact' );
+			$errors['email'] = __( 'A valid email address is required.', 'zontact' );
 		}
 		if ( empty( $message ) ) {
-			$errors['message'] = __( 'Message is required.', 'Zontact' );
+			$errors['message'] = __( 'Message is required.', 'zontact' );
 		}
 		if ( ! empty( $website ) ) {
 			wp_send_json_error(
-				[ 'message' => __( 'Spam detected.', 'Zontact' ) ],
+				[ 'message' => __( 'Spam detected.', 'zontact' ) ],
 				400
 			);
 		}
@@ -61,7 +61,7 @@ final class Ajax {
 		$options = Options::get();
 
 		if ( ! empty( $options['consent_text'] ) && ! $consent ) {
-			$errors['consent'] = __( 'Consent is required.', 'Zontact' );
+			$errors['consent'] = __( 'Consent is required.', 'zontact' );
 		}
 
 		if ( ! empty( $errors ) ) {
@@ -72,7 +72,7 @@ final class Ajax {
 		$this->store_message( $name, $email, $message, $consent, $options );
 
 		wp_send_json_success(
-			[ 'message' => $options['success_message'] ?? __( 'Message sent successfully.', 'Zontact' ) ]
+			[ 'message' => $options['success_message'] ?? __( 'Message sent successfully.', 'zontact' ) ]
 		);
 	}
 
@@ -87,7 +87,7 @@ final class Ajax {
 	 */
 	private function send_email( string $name, string $email, string $message, array $options ): void {
 		$to       = $options['recipient_email'] ?? get_option( 'admin_email' );
-		$subject  = $options['subject'] ?? __( 'New Zontact message', 'Zontact' );
+		$subject  = $options['subject'] ?? __( 'New Zontact message', 'zontact' );
 		$body     = sprintf(
 			"Name: %s\nEmail: %s\n\nMessage:\n%s",
 			$name,
@@ -111,7 +111,7 @@ final class Ajax {
 		if ( ! $sent ) {
 			error_log( 'Zontact: wp_mail failed sending to ' . $to ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions
 			wp_send_json_error(
-				[ 'message' => __( 'Unable to send email. Please try again later.', 'Zontact' ) ],
+				[ 'message' => __( 'Unable to send email. Please try again later.', 'zontact' ) ],
 				500
 			);
 		}

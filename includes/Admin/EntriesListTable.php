@@ -45,12 +45,12 @@ final class EntriesListTable extends \WP_List_Table {
 	public function get_columns(): array {
 		return [
 			'cb'        => '<input type="checkbox" />',
-			'id'        => __( 'ID', 'Zontact' ),
-			'name'      => __( 'Name', 'Zontact' ),
-			'email'     => __( 'Email', 'Zontact' ),
-			'subject'   => __( 'Subject', 'Zontact' ),
-			'message'   => __( 'Message', 'Zontact' ),
-			'created_at'=> __( 'Date', 'Zontact' ),
+			'id'        => __( 'ID', 'zontact' ),
+			'name'      => __( 'Name', 'zontact' ),
+			'email'     => __( 'Email', 'zontact' ),
+			'subject'   => __( 'Subject', 'zontact' ),
+			'message'   => __( 'Message', 'zontact' ),
+			'created_at'=> __( 'Date', 'zontact' ),
 		];
 	}
 
@@ -91,7 +91,7 @@ final class EntriesListTable extends \WP_List_Table {
 	/** @inheritDoc */
 	protected function get_bulk_actions(): array {
 		return [
-			'delete' => __( 'Delete', 'Zontact' ),
+			'delete' => __( 'Delete', 'zontact' ),
 		];
 	}
 

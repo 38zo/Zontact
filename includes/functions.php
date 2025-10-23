@@ -14,7 +14,7 @@
  * @return string
  */
 function zontact_plugin_name() {
-	return apply_filters( 'zontact_plugin_name', 'Zontact' );
+	return apply_filters( 'zontact_plugin_name', 'zontact' );
 }
 
 /**

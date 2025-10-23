@@ -56,9 +56,9 @@ final class Assets {
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
 				'nonce'    => wp_create_nonce( 'zontact_submit' ),
 				'strings'  => [
-					'sending' => __( 'Sending…', 'Zontact' ),
-					'error'   => __( 'Please fix the errors and try again.', 'Zontact' ),
-					'success' => $options['success_message'] ?? __( 'Message sent successfully!', 'Zontact' ),
+					'sending' => __( 'Sending…', 'zontact' ),
+					'error'   => __( 'Please fix the errors and try again.', 'zontact' ),
+					'success' => $options['success_message'] ?? __( 'Message sent successfully!', 'zontact' ),
 				],
 			]
 		);
