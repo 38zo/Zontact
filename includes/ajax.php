@@ -36,7 +36,7 @@ final class Ajax {
 
 		$name    = sanitize_text_field( wp_unslash( $_POST['name'] ?? '' ) );
 		$email   = sanitize_email( wp_unslash( $_POST['email'] ?? '' ) );
-		$message = zontact_sanitize_html( wp_unslash( $_POST['message'] ?? '' ) );
+		$message = wp_kses_post( wp_unslash( $_POST['message'] ?? '' ) );
 		$website = sanitize_text_field( wp_unslash( $_POST['website'] ?? '' ) );
 		$consent = ! empty( $_POST['consent'] );
 
@@ -132,8 +132,8 @@ final class Ajax {
 			return;
 		}
 
-		$ip = sanitize_text_field( $_SERVER['REMOTE_ADDR'] ?? '' );
-		$ua = sanitize_text_field( $_SERVER['HTTP_USER_AGENT'] ?? '' );
+		$ip = sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ?? '' ) );
+		$ua = sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ?? '' ) );
 
 		$meta = [
 			'consent' => $consent ? 'yes' : 'no',
