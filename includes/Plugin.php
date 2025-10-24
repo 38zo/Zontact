@@ -56,16 +56,14 @@ final class Plugin {
 	private function __construct() {
 		$this->define_constants();
 
-		// Initialize the plugin.
 		add_action( 'init', [ $this, 'init' ] );
 		add_action( 'init', [ $this, 'maybe_install_db' ], 5 );
-		
-		// Register admin menu on admin_menu action.
+
 		if ( is_admin() ) {
 			add_action( 'admin_menu', [ $this, 'register_admin_menu' ] );
+			add_action( 'admin_init', [ $this, 'register_admin_settings' ] );
 		}
 
-		// Register activation hook.
 		register_activation_hook( ZONTACT_FILE, [ __CLASS__, 'activate' ] );
 	}
 
@@ -100,19 +98,17 @@ final class Plugin {
 	 * @return void
 	 */
 	public static function activate(): void {
-        // Create or upgrade database tables.
-        if ( class_exists( Database::class ) ) {
-            Database::create_tables();
-        }
+		if ( class_exists( Database::class ) ) {
+			Database::create_tables();
+		}
 
-        // Initialize default options.
-        if ( ! get_option( 'zontact_options' ) && class_exists( Options::class ) ) {
-            update_option( 'zontact_options', Options::defaults() );
-        }
+		if ( ! get_option( 'zontact_options' ) && class_exists( Options::class ) ) {
+			update_option( 'zontact_options', Options::defaults() );
+		}
 	}
 
 	/**
-	 * Ensure DB is installed when needed (e.g., activation not triggered in some environments).
+	 * Ensure DB is installed when needed.
 	 *
 	 * @return void
 	 */
@@ -132,6 +128,16 @@ final class Plugin {
 	}
 
 	/**
+	 * Register admin settings safely (runs only when WordPress settings API is loaded).
+	 *
+	 * @return void
+	 */
+	public function register_admin_settings(): void {
+		Settings::register();
+		( new EntriesPage() )->register();
+	}
+
+	/**
 	 * Initialize all plugin modules.
 	 *
 	 * @return void
@@ -145,11 +151,6 @@ final class Plugin {
 					$instance->register();
 				}
 			}
-		}
-
-		if ( is_admin() ) {
-			Settings::register();
-			( new EntriesPage() )->register();
 		}
 	}
 }
