@@ -3,7 +3,7 @@
         'name' => '38zo/zontact',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'f3dc988ac681fe613da7932cc8eaaf0a7d9a09db',
+        'reference' => '627de5897d321740d60e1a94f6e6769b98dd7be0',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         '38zo/zontact' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'f3dc988ac681fe613da7932cc8eaaf0a7d9a09db',
+            'reference' => '627de5897d321740d60e1a94f6e6769b98dd7be0',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
