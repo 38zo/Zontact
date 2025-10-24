@@ -6,6 +6,7 @@
  */
 
 namespace ThirtyEightZo\Zontact;
+
 use ThirtyEightZo\Zontact\Database;
 use ThirtyEightZo\Zontact\Options;
 use ThirtyEightZo\Zontact\Admin\Settings;
