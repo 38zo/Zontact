@@ -39,7 +39,7 @@ final class EntriesPage {
 	 * @return void
 	 */
 	public function register(): void {
-		add_action( 'admin_menu', [ $this, 'add_menu' ] );
+		// No longer needed – handled directly by Plugin class.
 	}
 
 	/**

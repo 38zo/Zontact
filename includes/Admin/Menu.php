@@ -33,7 +33,7 @@ final class Menu {
 			$menu_title,               // Page title.
 			$menu_title,               // Menu title.
 			'manage_options',          // Capability.
-			'Zontact',                 // Menu slug.
+			$menu_slug,                 // Menu slug.
 			[ __CLASS__, 'render_welcome_page' ], // Callback.
 			'dashicons-email-alt2',    // Icon.
 			58                         // Position.

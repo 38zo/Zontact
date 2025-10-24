@@ -61,8 +61,9 @@ final class Plugin {
 
 		if ( is_admin() ) {
 			add_action( 'admin_menu', [ $this, 'register_admin_menu' ] );
+			add_action( 'admin_menu', [ $this, 'register_entries_page' ], 20 );
 			add_action( 'admin_init', [ $this, 'register_admin_settings' ] );
-		}
+		}		
 
 		register_activation_hook( ZONTACT_FILE, [ __CLASS__, 'activate' ] );
 	}
@@ -136,6 +137,17 @@ final class Plugin {
 		Settings::register();
 		( new EntriesPage() )->register();
 	}
+
+	/**
+	 * Registers the Entries admin submenu under the Zontact menu.
+	 *
+	 * Ensures the submenu is added during the correct admin_menu hook.
+	 *
+	 * @return void
+	 */
+	public function register_entries_page(): void {
+		( new EntriesPage() )->add_menu();
+	}	
 
 	/**
 	 * Initialize all plugin modules.
