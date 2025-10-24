@@ -43,7 +43,7 @@ final class Database {
 		global $wpdb;
 		$table   = self::table_messages();
 		$like    = $wpdb->esc_like( $table );
-		$found   = $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $like ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$found   = $wpdb->get_var( "SHOW TABLES LIKE '{$like}'" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared
 		return ( $found === $table );
 	}
 

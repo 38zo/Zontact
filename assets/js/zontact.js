@@ -45,7 +45,7 @@
 	function serializeForm(form){
 		const data = new FormData(form);
 		data.append('action','zontact_submit');
-		data.append('nonce', (window.Zontact && Zontact.nonce) || '');
+		data.append('nonce', (window.zontact && zontact.nonce) || '');
 		return data;
 	}
 	
@@ -57,7 +57,7 @@
 	function setSubmitState(btn, disabled){
 		btn.disabled = disabled;
 		btn.textContent = disabled ? 
-			((Zontact && Zontact.strings && Zontact.strings.sending) || 'Sending…') : 
+			((zontact && zontact.strings && zontact.strings.sending) || 'Sending…') : 
 			'Send';
 	}
 
@@ -90,10 +90,10 @@
 		form.addEventListener('submit', function(e){
 			e.preventDefault();
 			setSubmitState(submitBtn, true);
-			setStatus(statusEl, (Zontact && Zontact.strings && Zontact.strings.sending) || 'Sending…');
+			setStatus(statusEl, (zontact && zontact.strings && zontact.strings.sending) || 'Sending…');
 			
 			const data = serializeForm(form);
-			fetch((Zontact && Zontact.ajax_url) || '/wp-admin/admin-ajax.php', { 
+			fetch((zontact && zontact.ajax_url) || '/wp-admin/admin-ajax.php', { 
 				method:'POST', 
 				body:data, 
 				credentials:'same-origin' 
@@ -101,7 +101,7 @@
 			.then(function(res){ return res.json(); })
 			.then(function(json){
 				if(json && json.success){
-					setStatus(statusEl, (Zontact && Zontact.strings && Zontact.strings.success) || 'Sent.', 'success');
+					setStatus(statusEl, (zontact && zontact.strings && zontact.strings.success) || 'Sent.', 'success');
 					form.reset();
 					setTimeout(function(){ 
 						closeModal(root, modal); 
@@ -109,12 +109,12 @@
 						setSubmitState(submitBtn, false);
 					}, 1500);
 				}else{
-					setStatus(statusEl, (Zontact && Zontact.strings && Zontact.strings.error) || 'There was an error.', 'error');
+					setStatus(statusEl, (zontact && zontact.strings && zontact.strings.error) || 'There was an error.', 'error');
 					setSubmitState(submitBtn, false);
 				}
 			})
 			.catch(function(){ 
-				setStatus(statusEl, (Zontact && Zontact.strings && Zontact.strings.error) || 'There was an error.', 'error');
+				setStatus(statusEl, (zontact && zontact.strings && zontact.strings.error) || 'There was an error.', 'error');
 				setSubmitState(submitBtn, false);
 			});
 		});
