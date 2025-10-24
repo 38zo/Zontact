@@ -124,8 +124,8 @@ final class Plugin {
 	 * @return void
 	 */
 	public function register_admin_menu(): void {
-		Menu::register();
-	}
+		Menu::add_menus();
+	}	
 
 	/**
 	 * Register admin settings safely (runs only when WordPress settings API is loaded).

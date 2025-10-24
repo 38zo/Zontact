@@ -17,7 +17,7 @@ final class Menu {
 	 * @return void
 	 */
 	public static function register(): void {
-		add_action( 'admin_menu', [ __CLASS__, 'add_menus' ] );
+		self::add_menus();
 	}
 
 	/**
@@ -33,7 +33,7 @@ final class Menu {
 			$menu_title,               // Page title.
 			$menu_title,               // Menu title.
 			'manage_options',          // Capability.
-			$menu_slug,                 // Menu slug.
+			'Zontact',                 // Menu slug.
 			[ __CLASS__, 'render_welcome_page' ], // Callback.
 			'dashicons-email-alt2',    // Icon.
 			58                         // Position.
