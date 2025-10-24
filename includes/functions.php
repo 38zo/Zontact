@@ -14,7 +14,15 @@
  * @return string
  */
 function zontact_plugin_name() {
-	return apply_filters( 'zontact_plugin_name', 'zontact' );
+	return apply_filters( 'zontact_plugin_name', 'Zontact' );
+}
+
+/**
+ * Returns the top level menu slug for the plugin.
+ * @return string
+ */
+function zontact_top_level_menu_slug() {
+    return apply_filters( 'zontact_top_level_menu_slug', 'Zontact' );
 }
 
 /**

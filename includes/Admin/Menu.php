@@ -27,12 +27,13 @@ final class Menu {
 	 */
 	public static function add_menus(): void {
 		$menu_title = zontact_plugin_name();
+		$menu_slug = zontact_top_level_menu_slug();
 
 		add_menu_page(
 			$menu_title,               // Page title.
 			$menu_title,               // Menu title.
 			'manage_options',          // Capability.
-			'Zontact',                 // Menu slug.
+			$menu_slug,                 // Menu slug.
 			[ __CLASS__, 'render_welcome_page' ], // Callback.
 			'dashicons-email-alt2',    // Icon.
 			58                         // Position.
@@ -40,13 +41,15 @@ final class Menu {
 
 		// Default submenus.
 		self::add_submenu(
-			'Zontact',
+			$menu_slug,
 			__( 'Settings', 'zontact' ),
 			__( 'Settings', 'zontact' ),
 			'manage_options',
 			'zontact-settings',
 			[ Settings::class, 'render_settings_page' ]
 		);
+
+		remove_submenu_page( zontact_top_level_menu_slug(), zontact_top_level_menu_slug() );
 
 		/**
 		 * Allow other modules to add submenus.
