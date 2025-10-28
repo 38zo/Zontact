@@ -88,8 +88,14 @@ final class DbEntryRepository implements EntryRepositoryInterface {
 		}
 
 		$query = "SELECT COUNT(*) FROM {$table} WHERE {$where}";
-		$sql   = $wpdb->prepare( $query, $args ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-		$count = (int) $wpdb->get_var( $sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery
+		
+		// Only use prepare if we have placeholders
+		if ( ! empty( $args ) ) {
+			$sql   = $wpdb->prepare( $query, $args ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+			$count = (int) $wpdb->get_var( $sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery
+		} else {
+			$count = (int) $wpdb->get_var( $query ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		}
 		
 		// Cache count for 5 minutes.
 		wp_cache_set( $cache_key, $count, 'zontact', 300 );
